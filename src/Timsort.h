@@ -83,7 +83,7 @@ protected:
 		}
 
 		res.first = it - 1;
-		return(it - 1);
+		return(res);
 	}
 
 };

@@ -31,12 +31,12 @@ public:
 	void test_getRunEnd(){
 
 		std::vector<int>::iterator it = Array->begin();
-		std::vector<int>::iterator e = getRunEnd(it);
+		std::pair< std::vector<int>::iterator, bool> e = getRunEnd(it);
 
-		std::cout << "Index: " <<(int)(e - it) << std::endl;
-		std::cout << "Value: " << *e << std::endl;
+		std::cout << "Index: " <<(int)(e.first - it) << std::endl;
+		std::cout << "Value: " << *(e.first) << std::endl;
 
-	    CHECK( (int)(e - it) == 2, "Wrong element index" );
+	    CHECK( (int)((e.first) - it) == 2, "Wrong element index" );
 	}
 
 	Test(){

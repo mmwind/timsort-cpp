@@ -9,7 +9,15 @@
 // using standard exceptions
 #include <iostream>
 #include <exception>
-#include <typeinfo.h>
+
+#ifdef __MINGW32__
+	#include <typeinfo.h>
+#endif
+
+#ifdef __linux__
+	#include <typeinfo>
+#endif
+
 
 /**
  * \def THROW(M)
