@@ -22,7 +22,15 @@ public:
 			throw (std::bad_array_length());
 		}
 		minrun = getMinrun();
-		for (unsigned int i = 0; i < Array->size(); i++){
+
+		std::vector<int>::iterator it = Array->begin();
+		while(it != Array->end()){
+			std::pair< std::vector<int>::iterator, bool> eit = getRunEnd(it);
+
+			unsigned int len =  eit.first - it;
+			if(len < minrun){
+				eit.first = eit.first + (minrun - len);
+			}
 
 		}
 
@@ -51,8 +59,21 @@ protected:
 	    return n + r;
 	}
 
-	std::vector<int>::iterator getRunEnd(std::vector<int>::iterator first){
+	/**
+	 *
+	 * @param first
+	 * @return конец подмассива и то, как он упорядочен (true - по убыванию, дальнейшая сортировка нужна)
+	 */
+	std::pair< std::vector<int>::iterator, bool> getRunEnd(std::vector<int>::iterator first){
+
+		std::pair< std::vector<int>::iterator, bool> res;
+
 		std::vector<int>::iterator it = first + 1;
+		if(*(it - 1) > *it && it != Array->end())
+			res.second = true;
+		else
+			res.second = false;
+
 		while(*(it - 1) > *it && it != Array->end() ){
 			it++;
 		}
@@ -60,6 +81,8 @@ protected:
 		while(*(it - 1) <= *it && it != Array->end() ){
 			it++;
 		}
+
+		res.first = it - 1;
 		return(it - 1);
 	}
 
